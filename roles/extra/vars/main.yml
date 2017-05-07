@@ -1,6 +1,6 @@
 ---
-dockeruser: dockeruser
-dockergroup: dockergroup
+dockeruser: plex
+dockergroup: plex
 
 isodir: /opt/iso
 dockerlist: /opt/docker.list

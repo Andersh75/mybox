@@ -8,8 +8,8 @@ mntpoints:
   - parity1
   - storage
 
-dockeruser: dockeruser
-dockergroup: dockergroup
+dockeruser: plex
+dockergroup: plex
 
 appdata: /opt/appdata
 downloaddir: /opt/downloads
