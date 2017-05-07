@@ -5,6 +5,19 @@
     upgrade: full
     cache_valid_time: 300
 
+- name: create group for docker appdata
+  group:
+    name: "{{dockergroup}}"
+    state: present
+    gid: 1050
+
+- name: create user for docker appdata
+  user:
+    name: "{{dockeruser}}"
+    shell: /sbin/nologin
+    uid: 1050
+    group: "{{dockergroup}}"
+
 - name: ensure iso folder is present
   file:
     dest: "{{ isodir }}"
