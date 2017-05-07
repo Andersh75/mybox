@@ -23,8 +23,8 @@
     dest: "{{ isodir }}"
     state: directory
     recurse: yes
-    owner: "{{ dockeruser }}"
-    group: "{{ dockergroup }}"
+    owner: root
+    group: root
 
 - name: install packages
   apt: pkg={{ item }} state=present

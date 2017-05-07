@@ -17,24 +17,24 @@
     dest: "{{ appdata }}"
     state: directory
     #recurse: yes
-    owner: "{{dockeruser}}"
-    group: "{{dockergroup}}"
+    owner: root
+    group: root
 
 - name: ensure download folder is present
   file:
     dest: "{{ downloaddir }}"
     state: directory
     recurse: yes
-    owner: "{{ dockeruser }}"
-    group: "{{ dockergroup }}"
+    owner: root
+    group: root
 
 - name: ensure sabnzbd download dir is present
   file:
     dest: "{{ downloaddir }}/sabnzbd"
     state: directory
     recurse: yes
-    owner: "{{ dockeruser }}"
-    group: "{{ dockergroup }}"
+    owner: root
+    group: root
 
 
 - name: ensure sabnzbd complete download dir is present
@@ -42,8 +42,8 @@
     dest: "{{ downloaddir }}/sabnzbd/downloads"
     state: directory
     recurse: yes
-    owner: "{{ dockeruser }}"
-    group: "{{ dockergroup }}"
+    owner: root
+    group: root
 
 
 - name: ensure sabnzbd incomplete download dir is present
@@ -51,24 +51,16 @@
     dest: "{{ downloaddir }}/sabnzbd/incomplete"
     state: directory
     recurse: yes
-    owner: "{{ dockeruser }}"
-    group: "{{ dockergroup }}"
+    owner: root
+    group: root
 
 - name: ensure sabnzbd appdata dir is present
   file:
     dest: "{{ appdata }}/sabnzbd"
     state: directory
     recurse: yes
-    owner: "{{ dockeruser }}"
-    group: "{{ dockergroup }}"
-
-- name: ensure torrent download dir is present
-  file:
-    dest: "{{ downloaddir }}/torrents"
-    state: directory
-    recurse: yes
-    owner: "{{ dockeruser }}"
-    group: "{{ dockergroup }}"
+    owner: root
+    group: root
 
 - name: add dtail
   copy:
