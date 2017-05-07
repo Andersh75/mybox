@@ -1,0 +1,6 @@
+---
+- name: create user plex
+  user:
+    name: plex
+    state: present
+    groups: "sudo,docker,plex"

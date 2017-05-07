@@ -1,0 +1,160 @@
+---
+version: '2'
+services:
+  plex:
+    image: linuxserver/plex
+    container_name: plex
+    volumes:
+      - /opt/appdata/plex:/config
+      - /mnt/storage:/data
+    network_mode: host
+    restart: always
+    environment:
+      - VERSION=plexpass
+      - PUID=${PUID}
+      - PGID=${PGID}
+  plexpy:
+    image: linuxserver/plexpy
+    container_name: plexpy
+    depends_on:
+      - plex
+    volumes:
+      - /opt/appdata/plexpy:/config
+      - /opt/appdata/plex/Library/Application\ Support/Plex\ Media\ Server/Logs:/logs:ro
+    ports:
+      - 27029:8181
+    links:
+      - plex
+    restart: always
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+  plexrequests:
+    image: linuxserver/plexrequests
+    container_name: plexrequests
+    depends_on:
+      - plex
+    volumes:
+      - /opt/appdata/plexrequests:/config
+      - /mnt/storage/tv:/tv
+    ports:
+      - 27026:3000
+    links:
+      - plex
+    restart: always
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+  nzbget:
+    image: linuxserver/nzbget
+    container_name: nzbget
+    volumes:
+      - /opt/appdata/nzbget/config:/config
+      - /opt/downloads:/downloads
+      - /mnt/disk1/downloads/complete:/downloads/complete
+    ports:
+      - 27020:6789
+    restart: always
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    depends_on:
+      - nzbget
+    volumes:
+      - /opt/appdata/sonarr:/config
+      - /mnt/storage/tv:/tv
+      - /mnt/disk1/downloads/complete/tv:/downloads
+    ports:
+      - 27021:8989
+    links:
+      - nzbget
+    restart: always
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+  couchpotato:
+    image: linuxserver/couchpotato
+    container_name: couchpotato
+    depends_on:
+      - nzbget
+    volumes:
+      - /opt/appdata/couchpotato:/config
+      - /mnt/disk1/downloads/complete/movies:/downloads
+      - /mnt/storage/movies:/movies
+    ports:
+      - 27022:5050
+    links:
+      - nzbget
+    restart: always
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+  unifi:
+    image: linuxserver/unifi
+    container_name: unifi
+    network_mode: host
+    volumes:
+      - /opt/appdata/unifi:/config
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+  deluge:
+    image: linuxserver/deluge
+    container_name: deluge
+    network_mode: host
+    volumes:
+      - /opt/appdata/deluge:/config
+      - /mnt/disk1/downloads:/downloads
+      - /mnt/storage:/mnt/storage
+    restart: always
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+  booksonic:
+    image: ironicbadger/booksonic
+    container_name: booksonic
+    ports:
+      - 27027:8080
+    volumes:
+      - /opt/appdata/booksonic:/var/booksonic
+      - /mnt/storage/audiobooks:/audiobooks
+    restart: always
+  sync:
+    image: linuxserver/resilio-sync
+    container_name: sync
+    volumes:
+      - /opt/appdata/sync:/config
+      - /mnt/storage:/sync
+    ports:
+      - 27028:8888
+      - 55555:55555
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+    restart: always
+  smokeping:
+    image: linuxserver/smokeping
+    container_name: smokeping
+    volumes:
+      - /opt/appdata/smokeping/config:/config
+      - /opt/appdata/smokeping/data:/data
+    ports:
+      - 27025:80
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+    restart: always
+  quassel:
+    image: linuxserver/quassel-core
+    container_name: quassel
+    volumes:
+      - /opt/appdata/quassel:/config
+    ports:
+      - 27023:4242
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+    restart: always

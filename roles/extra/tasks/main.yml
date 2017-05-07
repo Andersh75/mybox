@@ -1,0 +1,45 @@
+---
+- name: ensure os is up to date
+  apt:
+    update_cache: yes
+    upgrade: full
+    cache_valid_time: 300
+
+- name: ensure iso folder is present
+  file:
+    dest: "{{ isodir }}"
+    state: directory
+    recurse: yes
+    owner: "{{ dockeruser }}"
+    group: "{{ dockergroup }}"
+
+- name: install packages
+  apt: pkg={{ item }} state=present
+  with_items:
+    - bash-completion
+    - curl
+    - exiftool
+    - fuse
+    - glances
+    - git
+    - htop
+    - iftop
+    - iotop
+    - jq
+    - lynx
+    - mc
+    - ncdu
+    - nmap
+    - openssh-server
+    - python
+    - reptyr
+    - screen
+    - smartmontools
+    - sudo
+    - tmux
+    - tree
+    - wget
+    - xfsprogs
+    - youtube-dl
+  tags:
+    - packages

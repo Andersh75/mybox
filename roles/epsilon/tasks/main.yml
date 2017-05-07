@@ -1,0 +1,21 @@
+---
+# epsilon specific setup
+#- name: configure base-os
+#  include: base-os.yml
+#  when: base-os
+#  tags: baseos
+
+#- name: configure network file sharing
+#  include: file-sharing.yml
+#  when: file_sharing
+#  tags: file_sharing
+
+#- name: configure backups
+#  include: backups.yml
+#  when: backups
+#  tags: backups
+
+- name: configure docker apps (usenet, plex, etc)
+  include: docker-apps.yml
+  when: docker_apps
+  tags: docker_apps

@@ -1,0 +1,6 @@
+---
+dockeruser: dockeruser
+dockergroup: dockergroup
+
+isodir: /opt/iso
+dockerlist: /opt/docker.list
