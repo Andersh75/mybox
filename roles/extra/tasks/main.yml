@@ -9,13 +9,13 @@
   group:
     name: "{{dockergroup}}"
     state: present
-    gid: 1060
+    gid: 1000
 
 - name: create user for docker appdata
   user:
     name: "{{dockeruser}}"
     shell: /sbin/nologin
-    uid: 1060
+    uid: 1000
     group: "{{dockergroup}}"
 
 - name: ensure iso folder is present
