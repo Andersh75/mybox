@@ -5,9 +5,10 @@
 - hosts: all
   sudo: true
   roles:
-    - docker
-    - docker-compose
+    # - docker
+    # - docker-compose
     #- mergerfs
     #- snapraid
-    - extra
-    - epsilon
+    # - extra
+    # - epsilon
+    - onlydockerapps
