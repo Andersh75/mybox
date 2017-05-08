@@ -1,0 +1,16 @@
+---
+version: '2'
+services:
+  sabnzbd:
+    image: linuxserver/sabnzbd
+    container_name: sabnzbd
+    volumes:
+      - /opt/appdata/sabnzbd/config:/config
+      - /opt/downloads/sabnzbd/downloads:/downloads
+      - /opt/downloads/sabnzbd/incomplete:/incomplete-downloads
+    ports:
+      - 8080:8080
+    restart: always
+    environment:
+      - PUID=0
+      - PGID=0
